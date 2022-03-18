@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatty</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body class="p-2">
+    <div id="app">
+        <div id="chatWindow" class="border-2 w-100 h-96 p-2 bg-gray-400">
+            <div id="connectionMessage" class="text-center">
+                <label class="mx-2">Username:</label>
+                <input id="usernameInput" type="text" class="bg-gray-300 p-2" />
+                <button id="connectBtn" class="mx-2 border border-gray-600 p-2">Connect</button>
+            </div>
+        </div>
+        <div id="inputContainer" class="mt-2 flex">
+            <input id="textInput" type="text" class="border-2 p-2 w-full" />
+            <button id="submitButton" class="mx-2 border-2 p-2">submit</button>
+        </div>
+    </div>
+    <script type="module" src="./static/main.ts"></script>
+</body>
+</html>

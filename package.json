@@ -1,0 +1,19 @@
+{
+  "name": "websocket-chat-client",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/uuid": "^8.3.4",
+    "autoprefixer": "^10.4.4",
+    "parcel": "^2.3.2",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "run": "yarn parcel src/index.html",
+    "build": "yarn parcel build src/index.html"
+  }
+}
