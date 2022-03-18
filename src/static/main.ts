@@ -31,7 +31,7 @@ function appendMessage(messageData: MessageData) {
 }
 
 function initConnection(user: User) {
-  const socket = new WebSocket("wss://localhost:8080");
+  const socket = new WebSocket(process.env.SERVER_URL);
 
   socket.onopen = function () {
     console.log("connection opened");
