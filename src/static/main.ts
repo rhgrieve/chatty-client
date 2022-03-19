@@ -14,11 +14,11 @@ function createUser(username: string) {
   return new User(username);
 }
 
-function appendMessage(messageData: MessageData) {
+function appendMessage(messageData: MessageData, isSystem?: boolean) {
   const scrollPos = chatWindow.clientHeight + chatWindow.scrollTop;
   const isSCrolledToBottom = scrollPos === chatWindow.scrollHeight;
 
-  const markdownText = `_${messageData.datetime}_ **${messageData.username}**: ${messageData.message}`;
+  const markdownText = isSystem ? `_${messageData.message}_` : `_${messageData.datetime}_ **${messageData.username}**: ${messageData.message}`;
   const div = document.createElement('div');
   div.innerHTML = md.render(markdownText);
   chatWindow.appendChild(div);
@@ -33,7 +33,7 @@ function systemMessage(message: string) {
     username: 'system',
     datetime: new Date().toLocaleTimeString(),
     color: '#AAA',
-  });
+  }, true);
 }
 
 function initConnection(user: User) {
@@ -42,7 +42,7 @@ function initConnection(user: User) {
   socket.onopen = () => {
     console.log('connection opened');
     user.connect(socket);
-    systemMessage('now connected');
+    systemMessage(':rocket: Connected to chat');
   };
 
   socket.onclose = () => {
@@ -53,7 +53,11 @@ function initConnection(user: User) {
   socket.onmessage = (e) => {
     console.log(e.data);
     const s = JSON.parse(e.data);
-    appendMessage(s);
+    if (s.statusMessage) {
+      systemMessage(s);
+    } else {
+      appendMessage(s);
+    }
   };
 
   submitBtn.onclick = () => {
