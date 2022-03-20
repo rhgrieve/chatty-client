@@ -14,11 +14,11 @@ function createUser(username: string) {
   return new User(username);
 }
 
-function appendMessage(messageData: MessageData, isSystem?: boolean) {
+function appendMessage(messageData: MessageData) {
   const scrollPos = chatWindow.clientHeight + chatWindow.scrollTop;
   const isSCrolledToBottom = scrollPos === chatWindow.scrollHeight;
 
-  const markdownText = isSystem ? `_${messageData.message}_` : `_${messageData.datetime}_ **${messageData.username}**: ${messageData.message}`;
+  const markdownText = messageData.isSystem ? `_${messageData.message}_` : `_${messageData.datetime}_ **${messageData.username}**: ${messageData.message}`;
   const div = document.createElement('div');
   div.innerHTML = md.render(markdownText);
   chatWindow.appendChild(div);
@@ -33,7 +33,8 @@ function systemMessage(message: string) {
     username: 'system',
     datetime: new Date().toLocaleTimeString(),
     color: '#AAA',
-  }, true);
+    isSystem: true,
+  });
 }
 
 function initConnection(user: User) {
@@ -53,11 +54,7 @@ function initConnection(user: User) {
   socket.onmessage = (e) => {
     console.log(e.data);
     const s = JSON.parse(e.data);
-    if (s.statusMessage) {
-      systemMessage(s);
-    } else {
-      appendMessage(s);
-    }
+    appendMessage(s);
   };
 
   submitBtn.onclick = () => {

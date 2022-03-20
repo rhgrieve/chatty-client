@@ -6,6 +6,7 @@ export interface MessageData {
   datetime: string;
   color: string;
   statusMessage?: string;
+  isSystem?: boolean;
 }
 
 export class User {
